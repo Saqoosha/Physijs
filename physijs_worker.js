@@ -883,10 +883,16 @@ reportWorld = function() {
 	
 	worldreport[1] = _num_objects; // record how many objects we're reporting on
 
+	var num_objects = 0;
 	//for ( i = 0; i < worldreport[1]; i++ ) {
 	for ( index in _objects ) {
 		if ( _objects.hasOwnProperty( index ) ) {
 			object = _objects[index];
+
+			// no need to report if object is static
+			if ( object.getCollisionFlags() & 1 ) { // CF_STATIC_OBJECT
+				continue;
+			}
 			
 			// #TODO: we can't use center of mass transform when center of mass can change,
 			//        but getMotionState().getWorldTransform() screws up on objects that have been moved
@@ -919,9 +925,13 @@ reportWorld = function() {
 			worldreport[ offset + 11 ] = _vector.x();
 			worldreport[ offset + 12 ] = _vector.y();
 			worldreport[ offset + 13 ] = _vector.z();
+
+			++num_objects;
 		}
 	}
 
+	worldreport[1] = num_objects;
+	
 	if ( SUPPORT_TRANSFERABLE ) {
 		transferableMessage( worldreport.buffer, [worldreport.buffer] );
 	} else {
