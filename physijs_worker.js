@@ -299,6 +299,10 @@ public_functions.addObject = function( description ) {
 		body.setCollisionFlags( description.collision_flags );
 	}
 
+	if ( typeof description.activation_state !== 'undefined' ) {
+		body.setActivationState(description.activation_state);
+	}
+
 	world.addRigidBody( body );
 
 	body.id = description.id;
@@ -475,6 +479,11 @@ public_functions.setCcdMotionThreshold = function ( details ) {
 
 public_functions.setCcdSweptSphereRadius = function ( details ) {
 	_objects[details.id].setCcdSweptSphereRadius( details.radius );
+};
+
+public_functions.setActivationState = function ( details ) {
+	_objects[details.id].setActivationState( details.state );
+	_objects[details.id].activate();
 };
 
 public_functions.addConstraint = function ( details ) {

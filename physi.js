@@ -1074,6 +1074,12 @@ window.Physijs = (function() {
 		}
 	};
 
+	// Physijs.Mesh.setActivationState
+	Physijs.Mesh.prototype.setActivationState = function ( state ) {
+		if ( this.world ) {
+			this.world.execute( 'setActivationState', { id: this._physijs.id, state: state } );
+		}
+	};
 
 	// Physijs.PlaneMesh
 	Physijs.PlaneMesh = function ( geometry, material, mass ) {
