@@ -668,6 +668,10 @@ window.Physijs = (function() {
 				for ( j = 0; j < collisions[ object._physijs.id ].length; j++ ) {
 					object2 = this._objects[ collisions[ object._physijs.id ][j] ];
 
+					if ( !object2 ) {
+						// console.log(new Error().stack);
+						continue;
+					}
 					if ( object._physijs.touches.indexOf( object2._physijs.id ) === -1 ) {
 						object._physijs.touches.push( object2._physijs.id );
 
@@ -888,7 +892,9 @@ window.Physijs = (function() {
 			delete this._vehicles[ object._physijs.id ];
 		} else {
 			THREE.Mesh.prototype.remove.call( this, object );
-			if ( object._physijs ) {
+			if ( !object ) {
+				// console.log(new Error().stack);
+			} else if ( object._physijs ) {
 				delete this._objects[object._physijs.id];
 				this.execute( 'removeObject', { id: object._physijs.id } );
 			}
