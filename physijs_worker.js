@@ -402,7 +402,11 @@ public_functions.updateTransform = function( details ) {
 		_transform.setRotation(new Ammo.btQuaternion( details.quat.x, details.quat.y, details.quat.z, details.quat.w ));
 	}
 	
-	_object.setWorldTransform( _transform );
+	if (_object.getCollisionFlags() & 2) { // if CF_KINEMATIC_OBJECT
+		_object.getMotionState().setWorldTransform( _transform );
+	} else {
+		_object.setWorldTransform( _transform );
+	}
 	_object.activate();
 };
 
