@@ -668,8 +668,7 @@ window.Physijs = (function() {
 				for ( j = 0; j < collisions[ object._physijs.id ].length; j++ ) {
 					object2 = this._objects[ collisions[ object._physijs.id ][j] ];
 
-					if ( !object2 ) {
-						// console.log(new Error().stack);
+					if ( !object2 )  {
 						continue;
 					}
 					if ( object._physijs.touches.indexOf( object2._physijs.id ) === -1 ) {
@@ -1066,6 +1065,20 @@ window.Physijs = (function() {
 		}
 	};
 
+	// Physijs.Mesh.setFriction
+	Physijs.Mesh.prototype.setFriction = function ( friction ) {
+		if ( this.world ) {
+			this.world.execute( 'setFriction', { id: this._physijs.id, friction: friction } );
+		}
+	};
+
+	// Physijs.Mesh.setRestitution
+	Physijs.Mesh.prototype.setRestitution = function ( restitution ) {
+		if ( this.world ) {
+			this.world.execute( 'setRestitution', { id: this._physijs.id, restitution: restitution } );
+		}
+	};
+
 	// Physijs.Mesh.setCcdMotionThreshold
 	Physijs.Mesh.prototype.setCcdMotionThreshold = function ( threshold ) {
 		if ( this.world ) {
@@ -1077,6 +1090,13 @@ window.Physijs = (function() {
 	Physijs.Mesh.prototype.setCcdSweptSphereRadius = function ( radius ) {
 		if ( this.world ) {
 			this.world.execute( 'setCcdSweptSphereRadius', { id: this._physijs.id, radius: radius } );
+		}
+	};
+
+	// Physijs.Mesh.setCollisionFlags
+	Physijs.Mesh.prototype.setCollisionFlags = function ( flags ) {
+		if ( this.world ) {
+			this.world.execute( 'setCollisionFlags', { id: this._physijs.id, flags: flags } );
 		}
 	};
 

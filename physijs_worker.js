@@ -477,12 +477,24 @@ public_functions.setDamping = function ( details ) {
 	_objects[details.id].setDamping( details.linear, details.angular );
 };
 
+public_functions.setFriction = function ( details ) {
+	_objects[details.id].setFriction( details.friction );
+};
+
+public_functions.setRestitution = function ( details ) {
+	_objects[details.id].setRestitution( details.restitution );
+};
+
 public_functions.setCcdMotionThreshold = function ( details ) {
 	_objects[details.id].setCcdMotionThreshold( details.threshold );
 };
 
 public_functions.setCcdSweptSphereRadius = function ( details ) {
 	_objects[details.id].setCcdSweptSphereRadius( details.radius );
+};
+
+public_functions.setCollisionFlags = function ( details ) {
+	_objects[details.id].setCollisionFlags( details.flags );
 };
 
 public_functions.setActivationState = function ( details ) {
